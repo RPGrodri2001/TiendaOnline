@@ -454,3 +454,12 @@ class ShoppingCart {
 
 // Crear instancia global del carrito
 const cart = new ShoppingCart();
+
+
+
+
+
+
+
+
+
