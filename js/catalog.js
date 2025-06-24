@@ -186,7 +186,7 @@ class CatalogManager extends ProductManager {
                         ${isOutOfStock ? 'Agotado' : 'Agregar'}
                     </button>
                     <button class="btn btn-small btn-secondary" 
-                    onclick="cart.addItem(${product.id})"
+                            onclick="catalogManager.viewProduct(${product.id})"
                             title="Ver detalles">
                         <i class="fas fa-eye"></i> Ver
                     </button>
@@ -195,6 +195,53 @@ class CatalogManager extends ProductManager {
         `;
         
         return productCard;
+    }
+
+    createProductBadges(product) {
+        let badges = '';
+        
+        if (!product.inStock) {
+            badges += '<div class="product-badge out-of-stock-badge">Agotado</div>';
+        }
+        
+        if (product.rating >= 4.8) {
+            badges += '<div class="product-badge popular-badge">Muy Popular</div>';
+        } else if (product.rating >= 4.5) {
+            badges += '<div class="product-badge recommended-badge">Recomendado</div>';
+        }
+        
+        return badges;
+    }
+
+    createRatingDisplay(product) {
+        if (!product.rating || !product.reviews) return '';
+        
+        const fullStars = Math.floor(product.rating);
+        const hasHalfStar = product.rating % 1 >= 0.5;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        
+        let stars = '';
+        
+        for (let i = 0; i < fullStars; i++) {
+            stars += '<i class="fas fa-star"></i>';
+        }
+        
+        if (hasHalfStar) {
+            stars += '<i class="fas fa-star-half-alt"></i>';
+        }
+        
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '<i class="far fa-star"></i>';
+        }
+        
+        return `
+            <div class="product-rating">
+                <div class="stars">${stars}</div>
+                <span class="rating-text">
+                    ${product.rating} (${product.reviews} reseñas)
+                </span>
+            </div>
+        `;
     }
 
     highlightSearchTerm(text) {
@@ -233,7 +280,7 @@ class CatalogManager extends ProductManager {
                         </div>
                         <div class="product-detail-actions">
                             <button class="btn ${!product.inStock ? 'btn-disabled' : ''}" 
-                                    onclick="catalogManager.addToCart(${product.id}); this.closest('.modal').remove();"
+                                    onclick="cart.addItem(${product.id}); this.closest('.modal').remove();"
                                     ${!product.inStock ? 'disabled' : ''}>
                                 <i class="fas fa-shopping-cart"></i> 
                                 ${product.inStock ? 'Agregar al Carrito' : 'Agotado'}
@@ -255,33 +302,42 @@ class CatalogManager extends ProductManager {
             if (e.target === modal) modal.remove();
         });
 
+        // Cerrar con tecla Escape
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                modal.remove();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+
         // Tracking
         Analytics.trackEvent('Producto', 'Ver Detalles', product.name);
     }
 
-    //catalogo manager
+    // Método para agregar al carrito
     addToCart(productId) {
-    const success = cart.addItem(productId);
-    
-    if (success) {
-        // Animación visual en el botón
-        const btn = event.target.closest('button');
-        if (btn && !btn.disabled) {
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> ¡Agregado!';
-            btn.style.background = '#28a745';
-            
-            setTimeout(() => {
-                btn.innerHTML = originalContent;
-                btn.style.background = '';
-            }, 2000);
-        }
+        const success = cart.addItem(productId);
+        
+        if (success) {
+            // Animación visual en el botón
+            const btn = event.target.closest('button');
+            if (btn && !btn.disabled) {
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> ¡Agregado!';
+                btn.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.background = '';
+                }, 2000);
+            }
 
-        // Tracking para catálogo
-        Analytics.trackEvent('Catalogo', 'Agregar Producto', 
-            products.find(p => p.id === productId)?.name);
+            // Tracking para catálogo
+            Analytics.trackEvent('Catalogo', 'Agregar Producto', 
+                products.find(p => p.id === productId)?.name);
+        }
     }
-}
 
     // Métodos de utilidad para navegación
     goToCategory(category) {
@@ -307,13 +363,18 @@ class CatalogManager extends ProductManager {
     }
 }
 
-// Esperar a que todo esté cargado antes de inicializar el catálogo
+// Inicializar catálogo cuando todo esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname.includes('catalogo.html') || document.title.includes('Catálogo')) {
-        // Esperar un poco más para asegurar que los datos estén cargados
+    if (window.location.pathname.includes('catalogo.html')) {
         setTimeout(() => {
-            const catalogManager = new CatalogManager();
-            window.catalogManager = catalogManager;
-        }, 100);
+            if (typeof products !== 'undefined' && products.length > 0) {
+                console.log('📦 Productos encontrados:', products.length);
+                const catalogManager = new CatalogManager();
+                window.catalogManager = catalogManager;
+                console.log('✅ Catálogo listo');
+            } else {
+                console.error('❌ No se encontraron productos');
+            }
+        }, 300);
     }
 });

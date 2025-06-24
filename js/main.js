@@ -69,16 +69,16 @@ class DulceAromaApp {
 
     setupGlobalEvents() {
         // Manejo de errores globales
-        window.addEventListener('error', (event) => {
-            console.error('Error global:', event.error);
-            Notifications.error('Ha ocurrido un error inesperado');
-        });
+window.addEventListener('error', (event) => {
+    console.error('Error detectado:', event.error);
+    // Solo log en consola, sin notificaciones al usuario
+});
 
         // Manejo de errores de promesas no capturadas
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('Promise rejection no manejada:', event.reason);
-            Notifications.error('Error de conexión o procesamiento');
-        });
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('Promise rejection:', event.reason);
+    // Solo log en consola, sin notificaciones al usuario
+});
 
         // Manejo de cambios de conectividad
         window.addEventListener('online', () => {

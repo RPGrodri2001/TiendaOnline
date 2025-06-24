@@ -136,5 +136,44 @@
     <script src="./js/products.js"></script>
     <script src="./js/catalog.js"></script>
     <script src="./js/main.js"></script>
+
+    <script>
+// Script de emergencia para arreglar contadores
+setTimeout(function() {
+    console.log('🔍 Verificando productos...');
+    
+    if (typeof products !== 'undefined' && products.length > 0) {
+        console.log('✅ Productos encontrados:', products.length);
+        
+        // Actualizar contadores manualmente
+        const counts = {
+            all: products.length,
+            chocolates: products.filter(p => p.category === 'chocolates').length,
+            flores: products.filter(p => p.category === 'flores').length,
+            otros: products.filter(p => p.category === 'otros').length
+        };
+        
+        // Mostrar contadores
+        Object.entries(counts).forEach(([category, count]) => {
+            const element = document.getElementById(`count-${category}`);
+            if (element) {
+                element.textContent = `(${count})`;
+                console.log(`📊 ${category}: ${count}`);
+            }
+        });
+        
+        // Mostrar productos
+        if (typeof productManager !== 'undefined') {
+            productManager.loadProducts();
+            console.log('🛍️ Productos cargados');
+        }
+        
+    } else {
+        console.error('❌ No hay productos disponibles');
+        // Intentar de nuevo en 1 segundo
+        setTimeout(arguments.callee, 1000);
+    }
+}, 500);
+</script>
 </body>
 </html>
