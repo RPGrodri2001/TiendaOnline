@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Senses - Chocolates y Flores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🍫 Three Senses</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Bienvenido a Three Senses</h1>
+                <p>Los mejores chocolates y flores para momentos especiales</p>
+                <a href="catalogo.html" class="btn">Ver Catálogo</a>
+            </div>
+        </section>
+
+        <section id="productos-destacados" class="section">
+            <h2>Productos Destacados</h2>
+            <p class="section-subtitle">Nuestros productos más populares y mejor valorados</p>
+            
+            <div class="product-grid" id="featuredProductGrid">
+                <!-- Los productos destacados se cargarán dinámicamente aquí -->
+            </div>
+
+            <div class="view-all-container">
+                <a href="catalogo.html" class="btn btn-outline">
+                    <i class="fas fa-th"></i> Ver Todo el Catálogo
+                </a>
+            </div>
+        </section>
+
+        <section id="nosotros" class="section">
+            <h2>Sobre Nosotros</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    En Three Senses, nos dedicamos a crear momentos especiales a través de nuestros exquisitos chocolates 
+                    artesanales y hermosos arreglos florales. Con más de 10 años de experiencia, hemos perfeccionado 
+                    el arte de combinar sabores únicos y presentaciones elegantes.
+                </p>
+                <p style="font-size: 1.1rem; color: #666;">
+                    Nuestra pasión es hacer que cada ocasión sea memorable, ya sea un cumpleaños, aniversario, 
+                    o simplemente un gesto de amor y aprecio.
+                </p>
+            </div>
+        </section>
+
+        <section id="contacto" class="section">
+            <h2>Contacto</h2>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h3 style="color: #8B4513; margin-bottom: 1rem;">
+                            <i class="fas fa-map-marker-alt"></i> Dirección
+                        </h3>
+                        <p>Av. Principal 123<br>Centro de la Ciudad</p>
+                    </div>
+                    <div>
+                        <h3 style="color: #8B4513; margin-bottom: 1rem;">
+                            <i class="fas fa-phone"></i> Teléfono
+                        </h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div>
+                        <h3 style="color: #8B4513; margin-bottom: 1rem;">
+                            <i class="fas fa-envelope"></i> Email
+                        </h3>
+                        <p>Threesenses@hotmail.com</p>
+                    </div>
+                    <div>
+                        <h3 style="color: #8B4513; margin-bottom: 1rem;">
+                            <i class="fas fa-clock"></i> Horarios
+                        </h3>
+                        <p>Lun-Sáb: 9:00 AM - 8:00 PM<br>Dom: 10:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeCart">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: $0.00</div>
+            
+            <h3>Método de Pago</h3>
+            <div class="payment-methods" id="paymentMethods">
+                <div class="payment-method" data-payment="tarjeta">
+                    <i class="fas fa-credit-card"></i>
+                    <p>Tarjeta</p>
+                </div>
+                <div class="payment-method" data-payment="paypal">
+                    <i class="fab fa-paypal"></i>
+                    <p>PayPal</p>
+                </div>
+                <div class="payment-method" data-payment="efectivo">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <p>Efectivo</p>
+                </div>
+            </div>
+            
+            <button class="btn" id="checkoutBtn" style="width: 100%; margin-top: 1rem;">
+                Proceder al Pago
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <footer>
+        <p>&copy; 2025 Three Senses. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

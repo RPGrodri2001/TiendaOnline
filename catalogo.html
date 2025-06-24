@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Three Senses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🍫 Three Senses</div>
+            <ul class="nav-links">
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="catalogo.html" class="active">Catálogo</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero section para catálogo -->
+        <section class="catalog-hero">
+            <div class="hero-content">
+                <h1>Nuestro Catálogo Completo</h1>
+                <p>Descubre todos nuestros productos exclusivos</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="catalog-header">
+                <h2>Todos Nuestros Productos</h2>
+                <p class="catalog-subtitle">Encuentra exactamente lo que buscas para esa ocasión especial</p>
+            </div>
+            
+            <!-- Filtros de productos -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i> Todos <span class="filter-count" id="count-all">0</span>
+                </button>
+                <button class="filter-btn" data-filter="chocolates">
+                    <i class="fas fa-candy-cane"></i> Chocolates <span class="filter-count" id="count-chocolates">0</span>
+                </button>
+                <button class="filter-btn" data-filter="flores">
+                    <i class="fas fa-seedling"></i> Flores <span class="filter-count" id="count-flores">0</span>
+                </button>
+                <button class="filter-btn" data-filter="otros">
+                    <i class="fas fa-gift"></i> Otros <span class="filter-count" id="count-otros">0</span>
+                </button>
+            </div>
+
+            <!-- Barra de búsqueda mejorada -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar productos por nombre o descripción..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+                <button class="clear-search" id="clearSearch" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Ordenamiento -->
+            <div class="sort-container">
+                <label for="sortSelect">Ordenar por:</label>
+                <select id="sortSelect" class="sort-select">
+                    <option value="name-asc">Nombre (A-Z)</option>
+                    <option value="name-desc">Nombre (Z-A)</option>
+                    <option value="price-asc">Precio (Menor a Mayor)</option>
+                    <option value="price-desc">Precio (Mayor a Menor)</option>
+                    <option value="rating-desc">Mejor Valorados</option>
+                </select>
+            </div>
+
+            <!-- Resultados de búsqueda -->
+            <div class="search-results" id="searchResults" style="display: none;">
+                <p>Mostrando <span id="resultCount">0</span> productos</p>
+            </div>
+            
+            <div class="product-grid" id="productGrid">
+                <!-- Los productos se cargarán dinámicamente aquí -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeCart">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total" id="cartTotal">Total: $0.00</div>
+            
+            <h3>Método de Pago</h3>
+            <div class="payment-methods" id="paymentMethods">
+                <div class="payment-method" data-payment="tarjeta">
+                    <i class="fas fa-credit-card"></i>
+                    <p>Tarjeta</p>
+                </div>
+                <div class="payment-method" data-payment="paypal">
+                    <i class="fab fa-paypal"></i>
+                    <p>PayPal</p>
+                </div>
+                <div class="payment-method" data-payment="efectivo">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <p>Efectivo</p>
+                </div>
+            </div>
+            
+            <button class="btn" id="checkoutBtn" style="width: 100%; margin-top: 1rem;">
+                Proceder al Pago
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <footer>
+        <p>&copy; 2025 Three Senses. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="index.html#nosotros">Nosotros</a>
+            <a href="index.html#contacto">Contacto</a>
+        </div>
+    </footer>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/products.js"></script>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
