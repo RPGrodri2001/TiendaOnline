@@ -73,7 +73,7 @@ const products = [
         category: "chocolates",
         price: 19.99,
         description: "Chocolates personalizados para el dia del padre",
-        image: "/imagenes/Chocolates/7.jpeg",
+        image: "imagenes/Chocolates/7.jpeg",
         inStock: true,
         rating: 3.6,
         reviews: 53
@@ -263,7 +263,7 @@ const products = [
         category: "flores",
         price: 34.99,
         description: "Elegantes rosas en colores variados sutiles",
-        image: "/imagenes/Flores/4.jpeg",
+        image: "imagenes/Flores/4.jpeg",
         inStock: true,
         rating: 4.6,
         reviews: 53
@@ -275,7 +275,7 @@ const products = [
         category: "flores",
         price: 31.99,
         description: "Elegantes Buque de rosas rosas",
-        image: "/imagenes/Flores/5.jpeg",
+        image: "imagenes/Flores/5.jpeg",
         inStock: true,
         rating: 4.2,
         reviews: 65
@@ -286,7 +286,7 @@ const products = [
         category: "flores",
         price: 40.99,
         description: "Buque personalizado para cumpleaños de rosas y girasoles",
-        image: "/imagenes/Flores/6.jpeg",
+        image: "imagenes/Flores/6.jpeg",
         inStock: true,
         rating: 2.6,
         reviews: 73
@@ -297,7 +297,7 @@ const products = [
         category: "flores",
         price: 85.99,
         description: "Rosas rojas en forma de corazón personalizado",
-        image: "/imagenes/Flores/7.jpeg",
+        image: "imagenes/Flores/7.jpeg",
         inStock: true,
         rating: 5,
         reviews: 95
@@ -308,7 +308,7 @@ const products = [
         category: "flores",
         price: 52.99,
         description: "Elegante arreglo de tulipanes especiales",
-        image: "/imagenes/Flores/8.jpeg",
+        image: "imagenes/Flores/8.jpeg",
         inStock: true,
         rating: 3.6,
         reviews: 68
@@ -319,7 +319,7 @@ const products = [
         category: "flores",
         price: 53.99,
         description: "Arreglo personalizado de rosas en forma de corazón para eventos especiales",
-        image: "/imagenes/Flores/9.jpeg",
+        image: "imagenes/Flores/9.jpeg",
         inStock: true,
         rating: 4.8,
         reviews: 53
@@ -330,7 +330,7 @@ const products = [
         category: "flores",
         price: 20.99,
         description: "Arreglo de ramo de rosas sencillo pero dedicar ",
-        image: "/imagenes/Flores/10.jpeg",
+        image: "imagenes/Flores/10.jpeg",
         inStock: true,
         rating: 2.6,
         reviews: 41
@@ -341,7 +341,7 @@ const products = [
         category: "flores",
         price: 20.99,
         description: "Arreglo sencillo pero delicado con rosas rosadas",
-        image: "/imagenes/Flores/11.jpeg",
+        image: "imagenes/Flores/11.jpeg",
         inStock: true,
         rating: 3.6,
         reviews: 41
@@ -352,7 +352,7 @@ const products = [
         category: "flores",
         price: 65.99,
         description: "Elegantes rosas solo en color Rojo",
-        image: "/imagenes/Flores/12.jpeg",
+        image: "imagenes/Flores/12.jpeg",
         inStock: true,
         rating: 5,
         reviews: 90
@@ -363,7 +363,7 @@ const products = [
         category: "flores",
         price: 25.99,
         description: "Adecuado para regalos momentaneos y lindos",
-        image: "/imagenes/Flores/13.jpeg",
+        image: "imagenes/Flores/13.jpeg",
         inStock: true,
         rating: 4.6,
         reviews: 25
@@ -374,7 +374,7 @@ const products = [
         category: "flores",
         price: 76.99,
         description: "Canasta personalizada con múltiples rosas",
-        image: "/imagenes/Flores/14.jpeg",
+        image: "imagenes/Flores/14.jpeg",
         inStock: true,
         rating: 5,
         reviews: 93
@@ -385,7 +385,7 @@ const products = [
         category: "flores",
         price: 38.99,
         description: "Arreglo de rosas Rojas y fucsias en su buque personalizado",
-        image: "/imagenes/Flores/15.jpeg",
+        image: "imagenes/Flores/15.jpeg",
         inStock: true,
         rating: 4.7,
         reviews: 59
