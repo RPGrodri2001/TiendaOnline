@@ -24,30 +24,40 @@ class CatalogManager extends ProductManager {
         }
     }
 
-    setupAdvancedSearch() {
-        const searchInput = document.getElementById('searchInput');
-        const clearSearch = document.getElementById('clearSearch');
+setupAdvancedSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
 
-        if (searchInput) {
-            // Mostrar/ocultar botón de limpiar búsqueda
-            searchInput.addEventListener('input', (e) => {
-                const hasValue = e.target.value.length > 0;
-                if (clearSearch) {
-                    clearSearch.style.display = hasValue ? 'block' : 'none';
-                }
-                this.updateSearchResults();
-            });
-        }
+    if (searchInput) {
+        // Debounce para mejor performance
+        const debouncedSearch = Performance.debounce((term) => {
+            this.setSearchTerm(term);
+        }, 300);
 
-        if (clearSearch) {
-            clearSearch.addEventListener('click', () => {
+        // Mostrar/ocultar botón de limpiar búsqueda
+        searchInput.addEventListener('input', (e) => {
+            const hasValue = e.target.value.length > 0;
+            if (clearSearch) {
+                clearSearch.style.display = hasValue ? 'block' : 'none';
+            }
+            
+            // Usar debounce para la búsqueda
+            debouncedSearch(e.target.value);
+            this.updateSearchResults();
+        });
+    }
+
+    if (clearSearch) {
+        clearSearch.addEventListener('click', () => {
+            if (searchInput) {
                 searchInput.value = '';
                 clearSearch.style.display = 'none';
                 this.setSearchTerm('');
                 this.updateSearchResults();
-            });
-        }
+            }
+        });
     }
+}
 
     setupUrlFilters() {
         // Permitir filtrar desde URL (ej: catalogo.html?category=chocolates)

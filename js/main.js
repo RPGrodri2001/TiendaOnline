@@ -396,3 +396,15 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
         Analytics
     };
 }
+
+//solo para debugging - para que en la consola del navegador (F12) 
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        console.log('📦 Estado de productos:', {
+            total: products?.length || 0,
+            chocolates: products?.filter(p => p.category === 'chocolates').length || 0,
+            flores: products?.filter(p => p.category === 'flores').length || 0,
+            otros: products?.filter(p => p.category === 'otros').length || 0
+        });
+    }, 100);
+});
