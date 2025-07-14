@@ -140,11 +140,63 @@
     </div>
 
     <!-- Notification Container -->
-    <div id="notificationContainer"></div>
+    <div id="notificationContainer"></div>  
+    
+    
+    <footer class="bg-light text-dark pt-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Logo y nombre -->
+                 <div class="col-md-3 mb-3">
+                    <div class="logo" style="font-size: 4rem;">🍫</div>
+                    <div class="logo fw-bold" style="font-size: 2.5rem;">Three Senses</div>
+                </div>
 
-    <footer>
-        <p>&copy; 2025 Three Senses. Todos los derechos reservados.</p>
+                
+                <!-- Categorías populares -->
+                 
+                <div class="col-md-3 mb-3">
+                    <h5 class="fw-bold" style="color: white;">Categorías populares</h5>
+                    <ul class="list-unstyled" >
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Chocolates</a></li>
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Flores</a></li>
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Mariachis</a></li>
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Vinos</a></li>
+
+                    </ul>
+                </div>
+
+                <!-- Servicios -->
+                <div class="col-md-3 mb-3">
+                    <h5 class="fw-bold" style="color: white;">Nuestros servicios</h5>
+                    <ul class="list-unstyled" style="color: white;">
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Envíos a domicilio</a></li>
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Métodos de pago</a></li>
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Seguimiento de pedidos</a></li>
+                        <li><a href="#" class="text-decoration-none" style="color: white;">Atención personalizada</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal y contacto -->
+                <div class="col-md-3 mb-3">
+                    <h5 class="fw-bold" class="text-decoration-none" style="color: white;">Para nuestros clientes</h5>
+                    <ul class="list-unstyled" class="text-decoration-none" style="color: white;">
+                        <li><a href="terminos.html" class="text-decoration-none" style="color: white;">Términos y condiciones</a></li>
+                        <li><a href="privacidad.html" class="text-decoration-none" style="color: white;">Política de privacidad</a></li>
+                        <li><a href="cookie.html" class="text-decoration-none" style="color: white;">Política de Cookies</a></li>
+                        <li><a href="aviso-legal.html" class="text-decoration-none" style="color: white;">Aviso legal</a></li>
+                    </ul>
+                    <h6 class="fw-bold mt-3" class="text-decoration-none" style="color: white;">Contáctanos</h6>
+                    <p class="mb-1" class="text-decoration-none" style="color: white;">📞 +593 99 086 0350</p>
+                    <p class="text-decoration-none" style="color: white;" >📧 threesenses@hotmail.com</p>
+                </div>
+            </div>
+            <div class="text-center py-3 border-top" class="text-decoration-none" style="color: white;">
+                &copy; 2025 Three Senses. Todos los derechos reservados. G3-N.
+            </div>
+        </div>
     </footer>
+
 
         <!-- Estetica del carrito de comprasr -->
     <script src="./js/cart-improved.js"></script>
@@ -156,6 +208,86 @@
     <script src="js/home.js"></script>
     <script src="./js/responsive.js"></script>
     <script src="js/main.js"></script>
+
+
+    <!-- Cookie Banner -->
+<div id="cookie-banner" style="display: none;">
+  <style>
+    #cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffeea8;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+
+    #cookie-banner p {
+      margin: 0;
+      color: #444;
+      flex: 1 1 auto;
+    }
+
+    #cookie-banner a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    #cookie-banner a:hover {
+      text-decoration: underline;
+    }
+
+    #cookie-banner button {
+      margin-left: 1rem;
+      white-space: nowrap;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 576px) {
+      #cookie-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+
+  <p><strong>Utilizamos cookies para mejorar tu experiencia.</strong>
+    Para cumplir con la nueva directiva sobre privacidad electrónica, necesitamos el consentimiento para utilizar tus cookies.
+    <a href="cookies.html">Aprende más.</a>
+  </p>
+  <button id="acceptCookies">Permitir Cookies</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cookieBanner = document.getElementById("cookie-banner");
+      const acceptBtn = document.getElementById("acceptCookies");
+
+      if (!localStorage.getItem("cookiesAccepted")) {
+        cookieBanner.style.display = "flex";
+      }
+
+      acceptBtn.addEventListener("click", function () {
+        localStorage.setItem("cookiesAccepted", "true");
+        cookieBanner.style.display = "none";
+      });
+    });
+  </script>
+</div>
+
+
 
 </body>
 </html>
