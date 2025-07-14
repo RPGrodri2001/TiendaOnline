@@ -19,6 +19,256 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="./css/cart-improved.css">
 
+    <!-- ESTILOS DEL BANNER DE COOKIES MEJORADO -->
+    <style>
+        /* Cookie Banner Styles */
+        .cookie-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cookie-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 25px;
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 4px solid #D2691E;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cookie-text-section {
+            flex: 1;
+        }
+
+        .cookie-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFE4B5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cookie-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .cookie-links {
+            font-size: 0.9rem;
+        }
+
+        .cookie-links a {
+            color: #FFE4B5;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .cookie-links a:hover {
+            color: #FFF8DC;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            min-width: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cookie-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cookie-btn:hover::before {
+            left: 100%;
+        }
+
+        .cookie-btn.accept {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .cookie-btn.accept:hover {
+            background: linear-gradient(45deg, #218838, #1ea87a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        .cookie-btn.reject {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .cookie-btn.reject:hover {
+            background: linear-gradient(45deg, #c82333, #d62c1a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .cookie-btn.settings {
+            background: transparent;
+            color: white;
+            border: 2px solid #FFE4B5;
+            box-shadow: 0 4px 15px rgba(255, 228, 181, 0.2);
+        }
+
+        .cookie-btn.settings:hover {
+            background: #FFE4B5;
+            color: #8B4513;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 228, 181, 0.3);
+        }
+
+        /* Status Indicator */
+        .cookie-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cookie-status.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cookie-status.accepted {
+            background: linear-gradient(45deg, #28a745, #20c997);
+        }
+
+        .cookie-status.rejected {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cookie-banner {
+                padding: 20px 15px;
+            }
+
+            .cookie-title {
+                font-size: 1.2rem;
+            }
+
+            .cookie-description {
+                font-size: 0.9rem;
+            }
+
+            .cookie-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cookie-btn {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .cookie-status {
+                right: 15px;
+                top: 15px;
+                font-size: 0.8rem;
+                padding: 10px 15px;
+            }
+        }
+
+        /* Animation for icons */
+        .cookie-icon {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-5px);
+            }
+            60% {
+                transform: translateY(-3px);
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -142,7 +392,6 @@
     <!-- Notification Container -->
     <div id="notificationContainer"></div>  
     
-    
     <footer class="bg-light text-dark pt-4 mt-5">
         <div class="container">
             <div class="row">
@@ -152,9 +401,7 @@
                     <div class="logo fw-bold" style="font-size: 2.5rem;">Three Senses</div>
                 </div>
 
-                
                 <!-- Categorías populares -->
-                 
                 <div class="col-md-3 mb-3">
                     <h5 class="fw-bold" style="color: white;">Categorías populares</h5>
                     <ul class="list-unstyled" >
@@ -162,7 +409,6 @@
                         <li><a href="#" class="text-decoration-none" style="color: white;">Flores</a></li>
                         <li><a href="#" class="text-decoration-none" style="color: white;">Mariachis</a></li>
                         <li><a href="#" class="text-decoration-none" style="color: white;">Vinos</a></li>
-
                     </ul>
                 </div>
 
@@ -197,10 +443,46 @@
         </div>
     </footer>
 
+    <!-- BANNER DE COOKIES MEJORADO -->
+    <!-- Overlay para bloquear la página -->
+    <div class="cookie-overlay" id="cookieOverlay"></div>
 
-        <!-- Estetica del carrito de comprasr -->
+    <!-- Banner de Cookies -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text-section">
+                <div class="cookie-title">
+                    <span class="cookie-icon">🍪</span>
+                    Política de Cookies - Three Senses
+                </div>
+                <div class="cookie-description">
+                    Utilizamos cookies para mejorar tu experiencia de navegación, personalizar contenido, 
+                    analizar el tráfico del sitio y ofrecer las mejores ofertas en chocolates y flores.
+                </div>
+                <div class="cookie-links">
+                    <a href="cookie.html" target="_blank">Más información sobre cookies</a> | 
+                    <a href="privacidad.html" target="_blank">Política de privacidad</a>
+                </div>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn settings" onclick="showCookieSettings()">
+                    <i class="fas fa-cog"></i> Configurar
+                </button>
+                <button class="cookie-btn reject" onclick="rejectCookies()">
+                    <i class="fas fa-times"></i> Rechazar
+                </button>
+                <button class="cookie-btn accept" onclick="acceptCookies()">
+                    <i class="fas fa-check"></i> Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicador de estado de cookies -->
+    <div class="cookie-status" id="cookieStatus"></div>
+
+    <!-- Scripts existentes -->
     <script src="./js/cart-improved.js"></script>
-
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/cart.js"></script>
@@ -209,85 +491,324 @@
     <script src="./js/responsive.js"></script>
     <script src="js/main.js"></script>
 
+    <!-- SCRIPT DEL BANNER DE COOKIES MEJORADO -->
+    <script>
+        // Gestión avanzada del banner de cookies para Three Senses
+        class ThreeSensesCookieManager {
+            constructor() {
+                this.cookieBanner = document.getElementById('cookieBanner');
+                this.cookieOverlay = document.getElementById('cookieOverlay');
+                this.cookieStatus = document.getElementById('cookieStatus');
+                this.gtag = window.gtag || function() {}; // Google Analytics
+                this.init();
+            }
 
-    <!-- Cookie Banner -->
-<div id="cookie-banner" style="display: none;">
-  <style>
-    #cookie-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #ffeea8;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 9999;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-      font-size: 0.95rem;
-      flex-wrap: wrap;
-    }
+            init() {
+                // SIEMPRE mostrar el banner en cada visita (sin persistencia)
+                console.log('🍪 Iniciando banner de cookies - aparecerá en cada visita');
+                
+                // Limpiar cualquier configuración previa guardada
+                localStorage.removeItem('threeSensesCookieConsent');
+                localStorage.removeItem('threeSensesCookieDate');
+                
+                // Mostrar el banner después de 1.5 segundos SIEMPRE
+                setTimeout(() => {
+                    this.showBanner();
+                }, 1500);
 
-    #cookie-banner p {
-      margin: 0;
-      color: #444;
-      flex: 1 1 auto;
-    }
+                // Agregar event listeners para cerrar con Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.cookieBanner.classList.contains('show')) {
+                        // Opcionalmente permitir cerrar con Escape (como rechazar)
+                        this.rejectCookies();
+                    }
+                });
+            }
 
-    #cookie-banner a {
-      color: #007BFF;
-      text-decoration: none;
-    }
+            showBanner() {
+                this.cookieBanner.classList.add('show');
+                this.cookieOverlay.classList.add('show');
+                
+                // Deshabilitar scroll del body
+                document.body.style.overflow = 'hidden';
+                
+                // Agregar evento al overlay para cerrar al hacer clic fuera
+                this.cookieOverlay.addEventListener('click', () => {
+                    // No hacer nada, forzar al usuario a tomar una decisión
+                });
+            }
 
-    #cookie-banner a:hover {
-      text-decoration: underline;
-    }
+            hideBanner() {
+                this.cookieBanner.classList.remove('show');
+                this.cookieOverlay.classList.remove('show');
+                
+                // Rehabilitar scroll del body
+                document.body.style.overflow = 'auto';
+            }
 
-    #cookie-banner button {
-      margin-left: 1rem;
-      white-space: nowrap;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-    }
+            acceptCookies() {
+                // NO guardar la decisión - solo ocultar el banner para esta sesión
+                console.log('🍪 Cookies aceptadas para esta sesión únicamente');
+                
+                this.hideBanner();
+                this.showStatus('accepted');
+                this.enableTracking();
+                
+                // Opcional: Mostrar mensaje de agradecimiento
+                this.showThankYouMessage();
+            }
 
-    @media (max-width: 576px) {
-      #cookie-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-    }
-  </style>
+            rejectCookies() {
+                // NO guardar la decisión - solo ocultar el banner para esta sesión
+                console.log('❌ Cookies rechazadas para esta sesión únicamente');
+                
+                this.hideBanner();
+                this.showStatus('rejected');
+                this.disableTracking();
+            }
 
-  <p><strong>Utilizamos cookies para mejorar tu experiencia.</strong>
-    Para cumplir con la nueva directiva sobre privacidad electrónica, necesitamos el consentimiento para utilizar tus cookies.
-    <a href="cookies.html">Aprende más.</a>
-  </p>
-  <button id="acceptCookies">Permitir Cookies</button>
+            showStatus(status) {
+                const statusConfig = {
+                    accepted: {
+                        text: '🍪 Cookies Aceptadas',
+                        class: 'accepted'
+                    },
+                    rejected: {
+                        text: '🚫 Cookies Rechazadas',
+                        class: 'rejected'
+                    }
+                };
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const cookieBanner = document.getElementById("cookie-banner");
-      const acceptBtn = document.getElementById("acceptCookies");
+                const config = statusConfig[status];
+                this.cookieStatus.textContent = config.text;
+                this.cookieStatus.className = `cookie-status show ${config.class}`;
+                
+                // Ocultar después de 4 segundos
+                setTimeout(() => {
+                    this.cookieStatus.classList.remove('show');
+                }, 4000);
+            }
 
-      if (!localStorage.getItem("cookiesAccepted")) {
-        cookieBanner.style.display = "flex";
-      }
+            enableTracking() {
+                console.log('🔍 Habilitando tracking para Three Senses...');
+                
+                // Habilitar Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('consent', 'update', {
+                        'analytics_storage': 'granted',
+                        'ad_storage': 'granted',
+                        'functionality_storage': 'granted',
+                        'personalization_storage': 'granted'
+                    });
+                    
+                    // Rastrear evento de aceptación de cookies
+                    gtag('event', 'cookie_consent', {
+                        'consent_action': 'accepted',
+                        'event_category': 'cookies',
+                        'event_label': 'Three Senses Cookie Banner'
+                    });
+                }
 
-      acceptBtn.addEventListener("click", function () {
-        localStorage.setItem("cookiesAccepted", "true");
-        cookieBanner.style.display = "none";
-      });
-    });
-  </script>
-</div>
+                // Habilitar otras herramientas de tracking que uses
+                // Ejemplo: Facebook Pixel, Hotjar, etc.
+                if (typeof fbq !== 'undefined') {
+                    fbq('consent', 'grant');
+                }
+                
+                console.log('✅ Tracking habilitado correctamente');
+            }
 
+            disableTracking() {
+                console.log('🚫 Deshabilitando tracking para Three Senses...');
+                
+                // Deshabilitar Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('consent', 'update', {
+                        'analytics_storage': 'denied',
+                        'ad_storage': 'denied',
+                        'functionality_storage': 'denied',
+                        'personalization_storage': 'denied'
+                    });
+                }
 
+                // Deshabilitar otras herramientas
+                if (typeof fbq !== 'undefined') {
+                    fbq('consent', 'revoke');
+                }
+                
+                // Limpiar cookies existentes (opcional)
+                this.clearTrackingCookies();
+                
+                console.log('✅ Tracking deshabilitado correctamente');
+            }
+
+            clearTrackingCookies() {
+                // Lista de cookies comunes a limpiar
+                const cookiesToClear = [
+                    '_ga', '_ga_*', '_gid', '_gat', '_gat_*',
+                    'fbp', '_fbp', 'fr', '_hjid', '_hjIncludedInSessionSample'
+                ];
+
+                cookiesToClear.forEach(cookieName => {
+                    // Limpiar cookies del dominio actual
+                    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+                    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+                });
+            }
+
+            showSettings() {
+                // Modal de configuración de cookies (versión simplificada)
+                const settingsHTML = `
+                    <div style="
+                        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                        background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                        z-index: 10000; max-width: 500px; width: 90%;
+                    ">
+                        <h3 style="color: #8B4513; margin-bottom: 20px;">⚙️ Configuración de Cookies</h3>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <h4>🔧 Cookies Esenciales</h4>
+                            <p style="font-size: 0.9rem; color: #666;">
+                                Necesarias para el funcionamiento básico del sitio (carrito, navegación, etc.)
+                            </p>
+                            <label style="color: #28a745; font-weight: bold;">✅ Siempre activas</label>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <h4>📊 Cookies de Análisis</h4>
+                            <p style="font-size: 0.9rem; color: #666;">
+                                Nos ayudan a entender cómo usas nuestro sitio para mejorarlo
+                            </p>
+                            <input type="checkbox" id="analytics" checked> 
+                            <label for="analytics">Google Analytics</label>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4>🎯 Cookies de Marketing</h4>
+                            <p style="font-size: 0.9rem; color: #666;">
+                                Para mostrarte ofertas relevantes de chocolates y flores
+                            </p>
+                            <input type="checkbox" id="marketing" checked> 
+                            <label for="marketing">Publicidad personalizada</label>
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                            <button onclick="this.parentElement.parentElement.remove()" 
+                                style="padding: 10px 20px; border: 2px solid #8B4513; background: transparent; color: #8B4513; border-radius: 5px; cursor: pointer;">
+                                Cancelar
+                            </button>
+                            <button onclick="threeSensesCookieManager.acceptCookies(); this.parentElement.parentElement.remove()" 
+                                style="padding: 10px 20px; border: none; background: #8B4513; color: white; border-radius: 5px; cursor: pointer;">
+                                Guardar Preferencias
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.insertAdjacentHTML('beforeend', settingsHTML);
+            }
+
+            showThankYouMessage() {
+                // Mensaje temporal de agradecimiento
+                const thankYou = document.createElement('div');
+                thankYou.style.cssText = `
+                    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+                    background: linear-gradient(45deg, #28a745, #20c997);
+                    color: white; padding: 15px 25px; border-radius: 25px;
+                    z-index: 10001; box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3);
+                    font-weight: bold; animation: slideDown 0.5s ease;
+                `;
+                thankYou.innerHTML = '🎉 ¡Gracias! Ahora puedes disfrutar de la mejor experiencia en Three Senses';
+                
+                document.body.appendChild(thankYou);
+                
+                // Remover después de 3 segundos
+                setTimeout(() => {
+                    thankYou.style.animation = 'slideUp 0.5s ease';
+                    setTimeout(() => thankYou.remove(), 500);
+                }, 3000);
+            }
+
+            // Método para resetear la decisión (ahora no es necesario ya que no se guarda)
+            resetCookieConsent() {
+                console.log('🔄 Banner aparecerá automáticamente en cada visita');
+                location.reload();
+            }
+
+            // Método para verificar si las cookies han expirado (ya no es necesario)
+            checkCookieExpiry() {
+                // No aplicable ya que no guardamos la decisión
+                return false;
+            }
+        }
+
+        // Inicializar el gestor de cookies cuando el DOM esté listo
+        let threeSensesCookieManager;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            threeSensesCookieManager = new ThreeSensesCookieManager();
+        });
+
+        // Funciones globales para los botones del banner
+        function acceptCookies() {
+            threeSensesCookieManager.acceptCookies();
+        }
+
+        function rejectCookies() {
+            threeSensesCookieManager.rejectCookies();
+        }
+
+        function showCookieSettings() {
+            threeSensesCookieManager.showSettings();
+        }
+
+        // Función para desarrollo - resetear cookies
+        function resetCookies() {
+            if (threeSensesCookieManager) {
+                threeSensesCookieManager.resetCookieConsent();
+            }
+        }
+
+        // Agregar animaciones CSS adicionales
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes slideDown {
+                from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            
+            @keyframes slideUp {
+                from { transform: translateX(-50%) translateY(0); opacity: 1; }
+                to { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+            }
+            
+            /* Mejora de la animación del banner */
+            .cookie-banner {
+                backdrop-filter: blur(10px);
+            }
+            
+            /* Efecto de brillo en los botones */
+            .cookie-btn:active {
+                transform: translateY(0) scale(0.98);
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+
+        // Información adicional en consola para desarrollo
+        console.log('🍫 Three Senses Cookie Manager cargado');
+        console.log('💡 Características:');
+        console.log('   ✅ Banner aparece en CADA visita');
+        console.log('   ✅ No guarda la decisión en localStorage');
+        console.log('   ✅ Reseteo automático en cada carga de página');
+        console.log('   - resetCookies() : Recargar página para ver banner');
+        
+        // Verificar si Google Analytics está cargado
+        if (typeof gtag !== 'undefined') {
+            console.log('📊 Google Analytics detectado y listo');
+        } else {
+            console.log('⚠️ Google Analytics no detectado');
+        }
+    </script>
 
 </body>
 </html>
